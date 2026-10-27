@@ -1,0 +1,363 @@
+<title>Ezra Espiritu Job Matches</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: one reading column; ranked list as uniform rows with a score gauge on the left, then searches and prep notes */
+:root {
+  --bg: #f5f6f4;
+  --surface: #ffffff;
+  --fg: #1b2226;
+  --muted: #5b676d;
+  --line: #dde2e0;
+  --accent: #2c5f86;
+  --accent-soft: #e3edf5;
+  --good: #2f7a4f;
+  --good-soft: #e2f1e8;
+  --warn: #9a6512;
+  --warn-soft: #f8eedc;
+  --low: #8a5a5a;
+  --low-soft: #f3e6e6;
+  --display: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+  --body: "IBM Plex Sans", "Segoe UI", system-ui, sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #12171a; --surface: #192024; --fg: #e4e9ea; --muted: #97a3a8; --line: #2b353a;
+    --accent: #7fb2da; --accent-soft: #1d3040; --good: #7cc79a; --good-soft: #193126;
+    --warn: #e0b061; --warn-soft: #362a15; --low: #d39b9b; --low-soft: #352222; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #12171a; --surface: #192024; --fg: #e4e9ea; --muted: #97a3a8; --line: #2b353a;
+  --accent: #7fb2da; --accent-soft: #1d3040; --good: #7cc79a; --good-soft: #193126;
+  --warn: #e0b061; --warn-soft: #362a15; --low: #d39b9b; --low-soft: #352222; color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body {
+  background: var(--bg); color: var(--fg); font-family: var(--body); font-size: 15px; line-height: 1.55;
+  padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+.wrap { max-width: 920px; margin: 0 auto; padding-block: 40px 64px; display: grid; gap: 40px; }
+h1, h2, h3 { font-family: var(--display); text-wrap: balance; margin: 0; line-height: 1.15; }
+h1 { font-size: clamp(28px, 5vw, 40px); font-weight: 700; }
+h2 { font-size: 22px; font-weight: 700; }
+h3 { font-size: 17px; font-weight: 600; }
+p { margin: 0; }
+a { color: var(--accent); text-underline-offset: 2px; }
+a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 4px; }
+.eyebrow { font-family: var(--mono); font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+.mono { font-family: var(--mono); }
+
+header { display: grid; gap: 14px; }
+.lede { color: var(--muted); max-width: 65ch; }
+.profile { display: flex; flex-wrap: wrap; gap: 8px; }
+.chip { font-family: var(--mono); font-size: 12.5px; padding: 4px 10px; border-radius: 999px; background: var(--accent-soft); color: var(--fg); }
+.notice { border: 1px solid var(--line); background: var(--surface); border-radius: 8px; padding: 14px 16px; font-size: 14px; color: var(--muted); }
+.notice strong { color: var(--fg); }
+
+section { display: grid; gap: 16px; }
+.sec-head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: end; gap: 12px; }
+.filters { display: flex; flex-wrap: wrap; gap: 6px; }
+.filters button {
+  font: 500 13px var(--body); padding: 6px 12px; border-radius: 999px; border: 1px solid var(--line);
+  background: var(--surface); color: var(--fg); cursor: pointer;
+}
+.filters button[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: var(--bg); }
+
+ol.jobs { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; }
+.job {
+  background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 18px;
+  display: grid; grid-template-columns: 64px minmax(0, 1fr); gap: 16px;
+}
+.score { display: grid; justify-items: center; align-content: start; gap: 4px; }
+.rank { font-family: var(--mono); font-size: 12px; color: var(--muted); }
+.gauge { width: 56px; height: 56px; border-radius: 50%; display: grid; place-items: center;
+  background: conic-gradient(var(--tone) calc(var(--s) * 1%), var(--line) 0); }
+.gauge span { width: 44px; height: 44px; border-radius: 50%; background: var(--surface); display: grid; place-items: center;
+  font: 600 16px var(--mono); font-variant-numeric: tabular-nums; color: var(--fg); }
+.job.hi { --tone: var(--good); } .job.mid { --tone: var(--warn); } .job.lo { --tone: var(--low); }
+.body { display: grid; gap: 10px; min-width: 0; }
+.title-row { display: grid; gap: 2px; }
+.company { color: var(--muted); font-size: 14px; }
+.meta { display: flex; flex-wrap: wrap; gap: 6px; }
+.tag { font-size: 12px; padding: 2px 8px; border-radius: 4px; background: var(--bg); border: 1px solid var(--line); color: var(--fg); }
+.tag.setup-remote { background: var(--accent-soft); border-color: transparent; }
+.tag.setup-site { background: var(--good-soft); border-color: transparent; }
+.tag.pay { font-family: var(--mono); font-variant-numeric: tabular-nums; }
+.tag.stale { background: var(--warn-soft); border-color: transparent; }
+.fit { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; font-size: 14px; }
+.fit div { display: grid; gap: 2px; align-content: start; }
+.fit .lbl { font-family: var(--mono); font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+.links { display: flex; flex-wrap: wrap; gap: 14px; font-size: 14px; font-weight: 500; }
+
+.grid2 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+.panel { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 18px; display: grid; gap: 10px; align-content: start; }
+.panel ul, .panel ol { margin: 0; padding-left: 20px; display: grid; gap: 6px; font-size: 14px; }
+.search-list { list-style: none; padding: 0 !important; }
+.search-list li { display: flex; justify-content: space-between; gap: 10px; border-bottom: 1px solid var(--line); padding-bottom: 6px; }
+.search-list li:last-child { border-bottom: 0; }
+.search-list .site { font-family: var(--mono); font-size: 12px; color: var(--muted); white-space: nowrap; }
+table { width: 100%; border-collapse: collapse; font-size: 14px; }
+th, td { text-align: left; padding: 8px 6px; border-bottom: 1px solid var(--line); vertical-align: top; }
+th { font-family: var(--mono); font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); font-weight: 500; }
+td.num { font-family: var(--mono); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.tbl { overflow-x: auto; }
+footer { font-size: 13px; color: var(--muted); border-top: 1px solid var(--line); padding-top: 16px; }
+
+@media (max-width: 640px) {
+  .job { grid-template-columns: minmax(0, 1fr); }
+  .score { grid-auto-flow: column; justify-content: start; align-items: center; gap: 10px; }
+  .fit, .grid2 { grid-template-columns: minmax(0, 1fr); }
+}
+</style>
+
+<div class="wrap">
+  <header>
+    <div class="eyebrow">Job match report · updated 27 Oct 2026</div>
+    <h1>Ezra Espiritu: Linux SysAdmin roles near Pampanga, Angeles and Clark</h1>
+    <p class="lede">These openings are ranked by how well they fit Ezra's CV. The list covers on-site and hybrid jobs in Clark Freeport, Angeles City and Mabalacat, plus work-from-home jobs open to anyone in the Philippines.</p>
+    <div class="profile">
+      <span class="chip">~4 yrs Linux SysAdmin · Kyndryl</span>
+      <span class="chip">RHEL 7–10 · Linux on Z</span>
+      <span class="chip">P2 incidents · change mgmt</span>
+      <span class="chip">ServiceNow · Tanium · vSphere</span>
+      <span class="chip">Ansible · Bash</span>
+      <span class="chip">Banking client · 24/7 ops</span>
+      <span class="chip">BSIT, T.I.P. (with distinction)</span>
+    </div>
+    <p class="notice"><strong>Before applying, open each link and confirm the role is still open.</strong> I found these through web search, and details may have changed since they were indexed. Salaries are the monthly ranges the employers posted. A blank means no salary was published.</p>
+  </header>
+
+  <section aria-labelledby="ranked">
+    <div class="sec-head">
+      <div>
+        <div class="eyebrow">Ranked shortlist</div>
+        <h2 id="ranked">Best matches first</h2>
+      </div>
+      <div class="filters" role="group" aria-label="Filter by work setup">
+        <button type="button" id="f-all" data-f="all" aria-pressed="true">All</button>
+        <button type="button" id="f-site" data-f="site" aria-pressed="false">Pampanga on-site / hybrid</button>
+        <button type="button" id="f-remote" data-f="remote" aria-pressed="false">Remote (PH-wide)</button>
+      </div>
+    </div>
+
+    <ol class="jobs" id="jobs">
+      <li class="job hi" data-setup="remote">
+        <div class="score"><span class="rank">#1</span><div class="gauge" style="--s:92"><span>92</span></div></div>
+        <div class="body">
+          <div class="title-row"><h3>Linux Systems Administrator (Work from Home)</h3><span class="company">NQX Philippines · supports Bell Canada</span></div>
+          <div class="meta"><span class="tag setup-remote">Remote · anywhere in PH</span><span class="tag">2–5 yrs</span><span class="tag">Posted 24 Sep 2026</span><span class="tag pay">Pay not listed</span></div>
+          <div class="fit">
+            <div><span class="lbl">Why it fits</span>This is a pure Red Hat environment, which matches Ezra's RHEL production support and availability work. The 2–5 year range fits 4 years of experience, and the after-hours on-call matches the 24/7 background.</div>
+            <div><span class="lbl">Gaps to prep</span>The listing asks for Red Hat Ansible Automation Platform and Satellite. Ezra should brush up on Satellite (patching and content views) and have an Ansible example ready.</div>
+          </div>
+          <div class="links"><a href="https://freehire.me/jobs/linux-systems-administrator-work-from-home-nqx-philippines-5j7nwaql" target="_blank" rel="noopener">View posting</a><a href="https://dailyremote.com/remote-linux-administrator-jobs-in-philippines" target="_blank" rel="noopener">Also on DailyRemote</a></div>
+        </div>
+      </li>
+
+      <li class="job hi" data-setup="site">
+        <div class="score"><span class="rank">#2</span><div class="gauge" style="--s:86"><span>86</span></div></div>
+        <div class="body">
+          <div class="title-row"><h3>Linux System Administrator (Web Hosting &amp; Release Support)</h3><span class="company">Trackerteer Corporation</span></div>
+          <div class="meta"><span class="tag setup-site">On-site · Clark Freeport Zone</span><span class="tag">Mid / night shift</span><span class="tag">5+ yrs</span><span class="tag pay">Pay not listed</span></div>
+          <div class="fit">
+            <div><span class="lbl">Why it fits</span>This is the closest Linux-only role physically in Clark. It asks for RHEL/CentOS, Bash, troubleshooting and server hardening, which is the core of Ezra's CV. RHCSA is preferred, not required.</div>
+            <div><span class="lbl">Gaps to prep</span>Ezra has about 4 of the 5 years asked for. The role also involves web-hosting tools (Apache, NGINX, DNS, SSL), Ubuntu, KVM or Proxmox, and Juniper vSRX firewalls. Ezra should lead with the 447-server hardening work. One listing says WFH and another says office-based, so ask the recruiter.</div>
+          </div>
+          <div class="links"><a href="https://trackerteer.com/careers" target="_blank" rel="noopener">Trackerteer careers page</a></div>
+        </div>
+      </li>
+
+      <li class="job hi" data-setup="remote">
+        <div class="score"><span class="rank">#3</span><div class="gauge" style="--s:78"><span>78</span></div></div>
+        <div class="body">
+          <div class="title-row"><h3>IT Engineer / Linux System Administrator (any city in PH)</h3><span class="company">Listed on Built In. Glassdoor shows a similar role from Fluent Trade Technologies.</span></div>
+          <div class="meta"><span class="tag setup-remote">Remote · any PH city</span><span class="tag">5+ yrs IT</span><span class="tag pay">Pay not listed</span></div>
+          <div class="fit">
+            <div><span class="lbl">Why it fits</span>The title is Linux-first, and it's open to applicants in Pampanga with no commute.</div>
+            <div><span class="lbl">Gaps to prep</span>Ezra has 4 years against the 5+ asked for. Counting the T.I.P. internship or lab work, if there was any, helps. Confirm the company name on the posting.</div>
+          </div>
+          <div class="links"><a href="https://builtin.com/job/it-engineer-linux-system-administrator-any-city-philippines/7779895" target="_blank" rel="noopener">View posting</a></div>
+        </div>
+      </li>
+
+      <li class="job hi" data-setup="site">
+        <div class="score"><span class="rank">#4</span><div class="gauge" style="--s:76"><span>76</span></div></div>
+        <div class="body">
+          <div class="title-row"><h3>Mid-level System Analyst and Administrator</h3><span class="company">Trackerteer Corporation</span></div>
+          <div class="meta"><span class="tag setup-site">On-site · Mabalacat / Clark</span><span class="tag">Mid-level</span><span class="tag pay">Pay not listed</span></div>
+          <div class="fit">
+            <div><span class="lbl">Why it fits</span>This is a mid-level role covering servers, databases and networks on Windows and Linux. Ezra could apply to both Trackerteer roles together.</div>
+            <div><span class="lbl">Gaps to prep</span>Windows Server and database administration aren't on the CV. Ezra should mention any exposure to them.</div>
+          </div>
+          <div class="links"><a href="https://www.glassdoor.com/job-listing/mid-level-system-analyst-and-administrator-trackerteer-JV_IC2338916_KO0,42_KE43,54.htm?jl=1009340092607" target="_blank" rel="noopener">View on Glassdoor</a></div>
+        </div>
+      </li>
+
+      <li class="job mid" data-setup="site">
+        <div class="score"><span class="rank">#5</span><div class="gauge" style="--s:70"><span>70</span></div></div>
+        <div class="body">
+          <div class="title-row"><h3>Global Support Services IT Engineer / Global Service Desk IT Engineer</h3><span class="company">TRT Shared Services (server, storage &amp; networking services)</span></div>
+          <div class="meta"><span class="tag setup-site">On-site · Angeles City</span><span class="tag pay">₱180k–220k (Support Services)</span><span class="tag pay">₱60k–90k (Service Desk)</span><span class="tag stale">Listing dated Jun 2026</span></div>
+          <div class="fit">
+            <div><span class="lbl">Why it fits</span>TRT's business is enterprise server and storage hardware. Ezra's work on server lifecycle, decommissioning and ServiceNow carries over directly. The Service Desk role is the more realistic entry point.</div>
+            <div><span class="lbl">Gaps to prep</span>The ₱180k role is likely senior and hardware-heavy (storage arrays, field work). Some Glassdoor reviews mention long hours, so ask about the schedule.</div>
+          </div>
+          <div class="links"><a href="https://ph.jobstreet.com/TRT-jobs/in-Angeles-City-Pampanga" target="_blank" rel="noopener">TRT jobs on JobStreet</a><a href="https://www.glassdoor.com/Reviews/TRT-Angeles-Pampanga-Reviews-EI_IE385724.0,3_IL.4,20_IC2364128.htm" target="_blank" rel="noopener">Employee reviews</a></div>
+        </div>
+      </li>
+
+      <li class="job mid" data-setup="site">
+        <div class="score"><span class="rank">#6</span><div class="gauge" style="--s:68"><span>68</span></div></div>
+        <div class="body">
+          <div class="title-row"><h3>IT Operations Technical Lead</h3><span class="company">Origo BPO (Australian-owned)</span></div>
+          <div class="meta"><span class="tag setup-site">Clark</span><span class="tag">Day shift · Mon–Fri 7am–4pm</span><span class="tag pay">Pay not listed</span></div>
+          <div class="fit">
+            <div><span class="lbl">Why it fits</span>This is a hands-on role covering system administration, automation and security hardening, and it's a day shift. The 447-server hardening project fits well here.</div>
+            <div><span class="lbl">Gaps to prep</span>It's a step up into a lead role, and it also covers networking, endpoint management and mentoring. It's probably a Windows/M365-heavy shop.</div>
+          </div>
+          <div class="links"><a href="https://ph.jobstreet.com/job/94871953" target="_blank" rel="noopener">View on JobStreet</a></div>
+        </div>
+      </li>
+
+      <li class="job mid" data-setup="remote">
+        <div class="score"><span class="rank">#7</span><div class="gauge" style="--s:62"><span>62</span></div></div>
+        <div class="body">
+          <div class="title-row"><h3>System Administrator Security Specialist</h3><span class="company">Neksjob Philippines</span></div>
+          <div class="meta"><span class="tag setup-remote">Remote</span><span class="tag">5–10 yrs</span><span class="tag pay">₱80k–110k</span><span class="tag stale">Post date unclear</span></div>
+          <div class="fit">
+            <div><span class="lbl">Why it fits</span>The pay is good, RHCSA/RHCE is listed as a plus, and the security-audit cleanup work is directly relevant.</div>
+            <div><span class="lbl">Gaps to prep</span>It asks for SIEM tools and vulnerability management, and more years of experience. Tanium experience is a partial bridge.</div>
+          </div>
+          <div class="links"><a href="https://bossjob.com/en/job/system-security-engineer-remote-209268" target="_blank" rel="noopener">View on Bossjob</a></div>
+        </div>
+      </li>
+
+      <li class="job mid" data-setup="site">
+        <div class="score"><span class="rank">#8</span><div class="gauge" style="--s:60"><span>60</span></div></div>
+        <div class="body">
+          <div class="title-row"><h3>Systems Administrator / Systems Engineer</h3><span class="company">Thrive (managed IT services)</span></div>
+          <div class="meta"><span class="tag setup-site">Clark Freeport Zone</span><span class="tag pay">Pay not listed</span></div>
+          <div class="fit">
+            <div><span class="lbl">Why it fits</span>This is an MSP with sysadmin, systems engineer and SOC openings in Clark. Ezra's ITSM and incident discipline transfers well.</div>
+            <div><span class="lbl">Gaps to prep</span>It's likely a Microsoft-first stack (Windows Server, M365) with end-user support. The listing's details weren't visible.</div>
+          </div>
+          <div class="links"><a href="https://ph.indeed.com/cmp/Thrive/jobs" target="_blank" rel="noopener">Thrive jobs on Indeed</a></div>
+        </div>
+      </li>
+
+      <li class="job lo" data-setup="site">
+        <div class="score"><span class="rank">#9</span><div class="gauge" style="--s:56"><span>56</span></div></div>
+        <div class="body">
+          <div class="title-row"><h3>IT Systems Engineer (up to ₱120k + night differential)</h3><span class="company">Technology Elite, Inc. (MSP)</span></div>
+          <div class="meta"><span class="tag setup-site">Clark Freeport Zone</span><span class="tag">Night shift</span><span class="tag pay">up to ₱120k</span><span class="tag">Relocation housing up to 4 wks</span></div>
+          <div class="fit">
+            <div><span class="lbl">Why it fits</span>The pay is strong, and there's free temporary housing for people relocating, which helps with a move from Marikina.</div>
+            <div><span class="lbl">Gaps to prep</span>The stack is Microsoft-heavy (Exchange, O365, Intune, Azure) with email-flow troubleshooting. Ezra's Azure Fundamentals cert is only an entry point. Their Senior Systems Engineer role (₱130k–180k, day shift) needs 5+ years of Windows, so it's a stretch.</div>
+          </div>
+          <div class="links"><a href="https://ph.jobstreet.com/job/95209714" target="_blank" rel="noopener">View on JobStreet</a><a href="https://freehire.me/companies/technology-elite" target="_blank" rel="noopener">All 11 Technology Elite openings</a></div>
+        </div>
+      </li>
+
+      <li class="job lo" data-setup="site">
+        <div class="score"><span class="rank">#10</span><div class="gauge" style="--s:52"><span>52</span></div></div>
+        <div class="body">
+          <div class="title-row"><h3>Senior Cloud and Server Project Engineer</h3><span class="company">KMC Solutions</span></div>
+          <div class="meta"><span class="tag setup-site">On-site · Pampanga</span><span class="tag">5–10 yrs</span><span class="tag pay">Pay not listed</span></div>
+          <div class="fit">
+            <div><span class="lbl">Why it fits</span>It's an established employer in Clark with a server and cloud focus, and good for networking toward future openings.</div>
+            <div><span class="lbl">Gaps to prep</span>It requires Azure solution design and is senior. It's worth watching for a mid-level infrastructure role at KMC instead.</div>
+          </div>
+          <div class="links"><a href="https://bossjob.com/zh-cn/job/senior-cloud-and-server-project-engineer-275495" target="_blank" rel="noopener">View on Bossjob</a></div>
+        </div>
+      </li>
+    </ol>
+    <p class="notice" id="empty" hidden>No roles match this filter.</p>
+  </section>
+
+  <section aria-labelledby="watch">
+    <div><div class="eyebrow">Worth a look</div><h2 id="watch">Also seen, but no direct link found</h2></div>
+    <div class="panel">
+      <ul>
+        <li><strong>Junior NOC Engineer</strong>, ForeFront Philippines. Hybrid in Clark, with rotating shifts including nights and weekends. This is a safe fallback with a quick hiring process.</li>
+        <li><strong>NOC Engineer</strong> at a BPO, Pampanga, ₱40k–60k. Search "NOC Engineer Pampanga" on JobStreet.</li>
+        <li><strong>Linux / Cloud Engineer (Work from Home)</strong>, OnlineJobs.ph, posted 7 Oct 2026. Deploys an enterprise app to self-hosted client servers.</li>
+        <li><strong>Internal IT Systems Engineer (NOC)</strong>, Technology Elite, Clark, ₱50k–60k.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section aria-labelledby="searches">
+    <div><div class="eyebrow">Saved searches</div><h2 id="searches">Check these weekly</h2></div>
+    <div class="panel">
+      <ul class="search-list">
+        <li><a href="https://ph.jobstreet.com/linux-system-administrator-jobs/in-Angeles-City-Pampanga" target="_blank" rel="noopener">Linux System Administrator, Angeles City</a><span class="site">JobStreet</span></li>
+        <li><a href="https://ph.jobstreet.com/information-technology-jobs/in-Clark-Freeport-Zone-Pampanga" target="_blank" rel="noopener">All IT jobs, Clark Freeport Zone</a><span class="site">JobStreet</span></li>
+        <li><a href="https://ph.jobstreet.com/data-center-jobs/in-Clark-Freeport-Zone-Pampanga" target="_blank" rel="noopener">Data center jobs, Clark</a><span class="site">JobStreet</span></li>
+        <li><a href="https://ph.jobstreet.com/redhat-linux-system-administrator-jobs" target="_blank" rel="noopener">Red Hat Linux SysAdmin, all PH (filter by Remote)</a><span class="site">JobStreet</span></li>
+        <li><a href="https://ph.indeed.com/q-system-administrator-l-clark-freeport-zone-jobs.html" target="_blank" rel="noopener">System Administrator, Clark Freeport Zone</a><span class="site">Indeed PH</span></li>
+        <li><a href="https://www.glassdoor.com/Job/pampanga-linux-administrator-jobs-SRCH_IL.0,8_IS6150_KO9,28.htm" target="_blank" rel="noopener">Linux administrator, Pampanga</a><span class="site">Glassdoor</span></li>
+        <li><a href="https://www.linkedin.com/jobs/search/?keywords=Linux%20System%20Administrator&amp;location=Pampanga%2C%20Philippines" target="_blank" rel="noopener">Linux System Administrator, Pampanga</a><span class="site">LinkedIn</span></li>
+        <li><a href="https://www.onlinejobs.ph/jobseekers/search/c/systems-administration--linux-administrator" target="_blank" rel="noopener">Linux administrator, work from home</a><span class="site">OnlineJobs.ph</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <section aria-labelledby="prep">
+    <div><div class="eyebrow">Before applying</div><h2 id="prep">Fix the CV and set the salary ask</h2></div>
+    <div class="grid2">
+      <div class="panel">
+        <h3>CV fixes, in priority order</h3>
+        <ol>
+          <li>Change the address to Pampanga, or add "Relocating to Clark/Angeles, available immediately". Recruiters in Clark often filter out Metro Manila addresses.</li>
+          <li>Make the name match LinkedIn (<span class="mono">ezra-pineda</span>) and the email, for example with "Ezra Espiritu (née Pineda)" if that applies.</li>
+          <li>Move Docker, Kubernetes and Elasticsearch to a "Familiar with" line, or add one bullet showing real use. Interviewers will test anything listed.</li>
+          <li>Add a Kyndryl bullet about Ansible or Bash automation, with a number (hours saved, servers patched).</li>
+          <li>Start studying for RHCSA (EX200). Even "RHCSA in progress, exam Dec 2026" lifts the top three matches.</li>
+          <li>Write "RHEL" consistently, and replace the references with "Available upon request".</li>
+        </ol>
+      </div>
+      <div class="panel">
+        <h3>Salary signals seen</h3>
+        <div class="tbl">
+          <table>
+            <thead><tr><th>Source</th><th>Monthly</th></tr></thead>
+            <tbody>
+              <tr><td>System engineer average, Clark (Indeed, Dec 2025)</td><td class="num">₱59,177</td></tr>
+              <tr><td>Linux SysAdmin, Makati (on-site)</td><td class="num">₱45k–50k</td></tr>
+              <tr><td>Linux + AWS SysAdmin, Pasig (hybrid)</td><td class="num">₱50k–60k</td></tr>
+              <tr><td>TRT Service Desk Engineer, Angeles</td><td class="num">₱60k–90k</td></tr>
+              <tr><td>Remote security SysAdmin (Neksjob)</td><td class="num">₱80k–110k</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p style="font-size:14px;color:var(--muted)">My suggestion: ask for about <strong style="color:var(--fg)">₱60k–80k</strong> for on-site roles in Pampanga and <strong style="color:var(--fg)">₱70k–95k</strong> for remote roles with foreign clients. Go higher once RHCSA is done.</p>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    How the scores work: Linux/RHEL skill overlap counts most, then experience level, then location and setup, then pay and seniority. The scores are my judgment from the CV and the published listings.
+  </footer>
+</div>
+
+<script>
+(function () {
+  var buttons = document.querySelectorAll('.filters button');
+  var jobs = document.querySelectorAll('#jobs .job');
+  var empty = document.getElementById('empty');
+  function apply(f) {
+    var shown = 0;
+    jobs.forEach(function (j) {
+      var on = f === 'all' || j.dataset.setup === f;
+      j.hidden = !on; if (on) shown++;
+    });
+    empty.hidden = shown > 0;
+    buttons.forEach(function (b) { b.setAttribute('aria-pressed', String(b.dataset.f === f)); });
+  }
+  buttons.forEach(function (b) { b.addEventListener('click', function () { apply(b.dataset.f); }); });
+})();
+</script>
