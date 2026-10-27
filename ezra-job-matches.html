@@ -88,6 +88,7 @@ ol.jobs { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; }
 .tag.setup-site { background: var(--good-soft); border-color: transparent; }
 .tag.pay { font-family: var(--mono); font-variant-numeric: tabular-nums; }
 .tag.stale { background: var(--warn-soft); border-color: transparent; }
+.tag.verified { background: var(--good-soft); border-color: transparent; }
 .fit { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; font-size: 14px; }
 .fit div { display: grid; gap: 2px; align-content: start; }
 .fit .lbl { font-family: var(--mono); font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
@@ -128,7 +129,7 @@ footer { font-size: 13px; color: var(--muted); border-top: 1px solid var(--line)
       <span class="chip">Banking client · 24/7 ops</span>
       <span class="chip">BSIT, T.I.P. (with distinction)</span>
     </div>
-    <p class="notice"><strong>Before applying, open each link and confirm the role is still open.</strong> I found these through web search, and details may have changed since they were indexed. Salaries are the monthly ranges the employers posted. A blank means no salary was published.</p>
+    <p class="notice"><strong>Before applying, open each link and confirm the role is still open.</strong> Roles tagged <em>Verified</em> were read directly from the live posting on 27 Oct. JobStreet, Indeed and Bossjob block automated visits, so the other roles come from search results and may have changed. Salaries are the monthly amounts the employers posted.</p>
   </header>
 
   <section aria-labelledby="ranked">
@@ -197,8 +198,34 @@ footer { font-size: 13px; color: var(--muted); border-top: 1px solid var(--line)
         </div>
       </li>
 
+      <li class="job hi" data-setup="remote">
+        <div class="score"><span class="rank">#5</span><div class="gauge" style="--s:72"><span>72</span></div></div>
+        <div class="body">
+          <div class="title-row"><h3>AWS / Linux Infrastructure Engineer (US night shift)</h3><span class="company">Shopper Approved (US SaaS company)</span></div>
+          <div class="meta"><span class="tag setup-remote">Remote · permanent WFH</span><span class="tag">Night shift · 9pm–6am PHT</span><span class="tag pay">US$1,200/mo (≈ ₱69k)</span><span class="tag verified">Verified 27 Oct · updated 8 Aug</span></div>
+          <div class="fit">
+            <div><span class="lbl">Why it fits</span>Ezra would own production Linux infrastructure: patching, base images, backups and restores, monitoring and incidents. It's a sysadmin job with no helpdesk work, and Ezra already knows night shifts.</div>
+            <div><span class="lbl">Gaps to prep</span>The stack is AWS (EC2, RDS, IAM, S3), Ubuntu, Nginx/Apache and PHP-FPM, and Ezra has no AWS on the CV. The posting is from August, so apply quickly if it's still open.</div>
+          </div>
+          <div class="links"><a href="https://www.onlinejobs.ph/jobseekers/job/aws-linux-infrastructure-engineer-us-night-shift-full-time-1698418" target="_blank" rel="noopener">View on OnlineJobs.ph</a></div>
+        </div>
+      </li>
+
+      <li class="job hi" data-setup="remote">
+        <div class="score"><span class="rank">#6</span><div class="gauge" style="--s:70"><span>70</span></div></div>
+        <div class="body">
+          <div class="title-row"><h3>Linux / Cloud Engineer (Work from home)</h3><span class="company">Enterprise AI software vendor (name not shown)</span></div>
+          <div class="meta"><span class="tag setup-remote">Remote · full-time</span><span class="tag pay">Pay: to be discussed</span><span class="tag verified">Verified 27 Oct · updated 27 Oct</span></div>
+          <div class="fit">
+            <div><span class="lbl">Why it fits</span>The posting is brand new and asks for a "Linux guru" who installs and upgrades software on Ubuntu and Red Hat servers. Ezra's troubleshooting under pressure fits well.</div>
+            <div><span class="lbl">Gaps to prep</span>The role is customer-facing over Zoom. It also asks for Kubernetes and KOTS, GitLab, Terraform, SALT, cloud-init and Proxmox/VMware. This is where Ezra's listed Docker and Kubernetes skills will be tested.</div>
+          </div>
+          <div class="links"><a href="https://www.onlinejobs.ph/jobseekers/job/linux-cloud-engineer-work-from-home-1734744" target="_blank" rel="noopener">View on OnlineJobs.ph</a></div>
+        </div>
+      </li>
+
       <li class="job mid" data-setup="site">
-        <div class="score"><span class="rank">#5</span><div class="gauge" style="--s:70"><span>70</span></div></div>
+        <div class="score"><span class="rank">#7</span><div class="gauge" style="--s:69"><span>69</span></div></div>
         <div class="body">
           <div class="title-row"><h3>Global Support Services IT Engineer / Global Service Desk IT Engineer</h3><span class="company">TRT Shared Services (server, storage &amp; networking services)</span></div>
           <div class="meta"><span class="tag setup-site">On-site · Angeles City</span><span class="tag pay">₱180k–220k (Support Services)</span><span class="tag pay">₱60k–90k (Service Desk)</span><span class="tag stale">Listing dated Jun 2026</span></div>
@@ -211,7 +238,7 @@ footer { font-size: 13px; color: var(--muted); border-top: 1px solid var(--line)
       </li>
 
       <li class="job mid" data-setup="site">
-        <div class="score"><span class="rank">#6</span><div class="gauge" style="--s:68"><span>68</span></div></div>
+        <div class="score"><span class="rank">#8</span><div class="gauge" style="--s:68"><span>68</span></div></div>
         <div class="body">
           <div class="title-row"><h3>IT Operations Technical Lead</h3><span class="company">Origo BPO (Australian-owned)</span></div>
           <div class="meta"><span class="tag setup-site">Clark</span><span class="tag">Day shift · Mon–Fri 7am–4pm</span><span class="tag pay">Pay not listed</span></div>
@@ -224,7 +251,7 @@ footer { font-size: 13px; color: var(--muted); border-top: 1px solid var(--line)
       </li>
 
       <li class="job mid" data-setup="remote">
-        <div class="score"><span class="rank">#7</span><div class="gauge" style="--s:62"><span>62</span></div></div>
+        <div class="score"><span class="rank">#9</span><div class="gauge" style="--s:62"><span>62</span></div></div>
         <div class="body">
           <div class="title-row"><h3>System Administrator Security Specialist</h3><span class="company">Neksjob Philippines</span></div>
           <div class="meta"><span class="tag setup-remote">Remote</span><span class="tag">5–10 yrs</span><span class="tag pay">₱80k–110k</span><span class="tag stale">Post date unclear</span></div>
@@ -237,7 +264,7 @@ footer { font-size: 13px; color: var(--muted); border-top: 1px solid var(--line)
       </li>
 
       <li class="job mid" data-setup="site">
-        <div class="score"><span class="rank">#8</span><div class="gauge" style="--s:60"><span>60</span></div></div>
+        <div class="score"><span class="rank">#10</span><div class="gauge" style="--s:60"><span>60</span></div></div>
         <div class="body">
           <div class="title-row"><h3>Systems Administrator / Systems Engineer</h3><span class="company">Thrive (managed IT services)</span></div>
           <div class="meta"><span class="tag setup-site">Clark Freeport Zone</span><span class="tag pay">Pay not listed</span></div>
@@ -249,8 +276,21 @@ footer { font-size: 13px; color: var(--muted); border-top: 1px solid var(--line)
         </div>
       </li>
 
+      <li class="job lo" data-setup="remote">
+        <div class="score"><span class="rank">#11</span><div class="gauge" style="--s:58"><span>58</span></div></div>
+        <div class="body">
+          <div class="title-row"><h3>System Administrator I</h3><span class="company">Intelligent Technical Solutions (US managed IT services)</span></div>
+          <div class="meta"><span class="tag setup-remote">Remote · WFH</span><span class="tag">3–5 yrs</span><span class="tag pay">₱81,200/mo</span><span class="tag verified">Verified 27 Oct · updated 2 Oct</span></div>
+          <div class="fit">
+            <div><span class="lbl">Why it fits</span>The pay is good and the 3–5 years matches. It has on-call rotation and ticket-based work, like Ezra's ServiceNow experience.</div>
+            <div><span class="lbl">Gaps to prep</span>It's a Windows-first role: Server 2012–2022, Active Directory, M365, Hyper-V and printers. The same company has senior roles at ₱95.8k and ₱104k that need 5+ years.</div>
+          </div>
+          <div class="links"><a href="https://www.onlinejobs.ph/jobseekers/job/system-administrator-i-1528307" target="_blank" rel="noopener">View on OnlineJobs.ph</a></div>
+        </div>
+      </li>
+
       <li class="job lo" data-setup="site">
-        <div class="score"><span class="rank">#9</span><div class="gauge" style="--s:56"><span>56</span></div></div>
+        <div class="score"><span class="rank">#12</span><div class="gauge" style="--s:56"><span>56</span></div></div>
         <div class="body">
           <div class="title-row"><h3>IT Systems Engineer (up to ₱120k + night differential)</h3><span class="company">Technology Elite, Inc. (MSP)</span></div>
           <div class="meta"><span class="tag setup-site">Clark Freeport Zone</span><span class="tag">Night shift</span><span class="tag pay">up to ₱120k</span><span class="tag">Relocation housing up to 4 wks</span></div>
@@ -263,7 +303,7 @@ footer { font-size: 13px; color: var(--muted); border-top: 1px solid var(--line)
       </li>
 
       <li class="job lo" data-setup="site">
-        <div class="score"><span class="rank">#10</span><div class="gauge" style="--s:52"><span>52</span></div></div>
+        <div class="score"><span class="rank">#13</span><div class="gauge" style="--s:52"><span>52</span></div></div>
         <div class="body">
           <div class="title-row"><h3>Senior Cloud and Server Project Engineer</h3><span class="company">KMC Solutions</span></div>
           <div class="meta"><span class="tag setup-site">On-site · Pampanga</span><span class="tag">5–10 yrs</span><span class="tag pay">Pay not listed</span></div>
@@ -284,7 +324,6 @@ footer { font-size: 13px; color: var(--muted); border-top: 1px solid var(--line)
       <ul>
         <li><strong>Junior NOC Engineer</strong>, ForeFront Philippines. Hybrid in Clark, with rotating shifts including nights and weekends. This is a safe fallback with a quick hiring process.</li>
         <li><strong>NOC Engineer</strong> at a BPO, Pampanga, ₱40k–60k. Search "NOC Engineer Pampanga" on JobStreet.</li>
-        <li><strong>Linux / Cloud Engineer (Work from Home)</strong>, OnlineJobs.ph, posted 7 Oct 2026. Deploys an enterprise app to self-hosted client servers.</li>
         <li><strong>Internal IT Systems Engineer (NOC)</strong>, Technology Elite, Clark, ₱50k–60k.</li>
       </ul>
     </div>
